@@ -1,0 +1,444 @@
+<?php
+if($_SERVER['REQUEST_METHOD']=="POST")
+{
+$email=$_POST['email'];
+$fname=$_POST['firstname'];
+$sname=$_POST['secondname'];
+$mobile=$_POST['mobile'];
+$password=$_POST['password'];
+$conpassword=$_POST['conpassword'];
+if($password==$conpassword && !empty($password) &&strlen($password)>5)
+{
+$hostname="localhost";
+$dbusername="root";
+$dbpassword="";
+$dbname="userdetail";
+$conn=mysqli_connect($hostname,$dbusername,$dbpassword,$dbname);
+if(mysqli_connect_error())
+{
+die('Connect Error');
+}
+else{
+$sql="INSERT INTO userdetail (email,password,fname,sname,mobile)
+values('$email','$password','$fname','$sname','$mobile')
+";
+if($conn->query($sql))
+{
+?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+$("#info").hide();
+var xml= new XMLHttpRequest();
+  xml.open("GET","sendotp.php?mobile="+<?php echo $mobile ?>,true)
+  xml.send();
+  xml.onreadystatechange=function(){
+  if(xml.readyState==4&&xml.status==200)
+  {
+  alert(xml.responseText);
+  }
+  }
+
+});
+</script>
+<?php
+}
+else{
+echo "Not Sent";
+}
+}
+}
+}
+?>
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+	$(document).ready(function(){
+	$("#signup").click(function(){
+	$("#signuppage").show();
+	if(	document.getElementById("background").style.opacity=="0.65")
+	document.getElementById("background").style.opacity="1";
+	else
+	document.getElementById("background").style.opacity="0.65";	
+	document.getElementById("signuppage").style.opacity="1";
+	});
+  $("#cross").click(function(){
+  $("#signuppage").hide();
+  if( document.getElementById("background").style.opacity=="0.65")
+  document.getElementById("background").style.opacity="1";
+  else
+  document.getElementById("background").style.opacity="0.65"; 
+  document.getElementById("signuppage").style.opacity="1";
+  });
+
+	});
+  function checkpass(){
+  $(document).ready(function(){
+ 
+ var firstpass=document.getElementById("pass_box").value;
+ var secondpass=document.getElementById("conpass_box").value;
+ if(firstpass!=secondpass)
+ {
+ alert("Password Should be same."); 
+ }
+ else{
+  var strlen=firstpass.length;
+  if(strlen==0)
+  {
+  alert("Password should not be empty.");
+  }
+  else{
+  if(strlen>"6")
+  {
+  }
+  else{
+  alert("Password should have at least 6 characters.");
+  }
+  }
+ }
+  });
+  }
+  function checkpassword(){
+  $(document).ready(function(){
+ 
+ var firstpass=document.getElementById("pass_box").value;
+ var secondpass=document.getElementById("conpass_box").value;
+ if(firstpass!=secondpass)
+ {
+ alert("Account Could Not Created. Because Password should be same."); 
+   return false;
+
+ }
+ else{
+  var strlen=firstpass.length;
+  if(strlen>"6")
+  {
+  }
+  else{
+  alert("Account Could Not Created. Because Password should have at least 6 characters.");
+  return false;
+  }
+  }
+  });
+  }
+  
+  function checkmobile(){
+  $(document).ready(function(){
+  var mobile=document.getElementById("mobile_box").value;
+  var xml= new XMLHttpRequest();
+  xml.open("GET","checkemail.php?mobile="+mobile,true)
+  xml.send();
+  xml.onreadystatechange=function(){
+  if(xml.readyState==4&&xml.status==200)
+  {
+  if(xml.responseText!=0)
+  {
+  alert("Mobile No. already exist.")
+  }
+  }
+  }
+  });
+  }
+	</script>
+<meta name="viewport" content="width=device-width, intial-scale=1">
+
+	<style>
+		#logo{
+			font-size: 35px;
+			font-family: arial;
+			color:white;
+			padding:20px;
+			float:left;
+      padding-top:30px;
+		}
+	   #background{
+			background-image:url("background.png");
+			width:100%;
+			height:110vh;
+			background-size: cover;
+	        background-position: center;
+	    
+		        }
+		        #navigation{
+        		font-family: Segoe UI;
+  
+		        	font-size: 25px;
+		        	padding-top:30px;
+		        	margin-left:35%;
+		        	margin-top:0px;
+		        }
+
+		        a{
+		        	 text-decoration: none;
+                     color:white;
+                     font-size: 25px;
+                     text-align: center;
+                     margin:2px;
+                     padding:4px;
+                     border-radius:8px;
+                 padding-left:10px;
+                 padding-right:10px;
+
+
+		        }
+		        a:hover{
+		        	color:white;
+		        	background-color:rgba(255,255,255,0.2);
+
+		        }
+            #active{
+                    color:white;
+		        	background-color:rgba(255,255,255,0.2);	
+                   }
+                
+            #login,#signup{
+            	font-family: arial;
+            float:right;
+            font-size: 20px;
+            color:maroon;
+            background-color:white;
+            margin:2px;
+            padding:12px;
+            border-radius:200px;
+            margin-right: 40px;
+            cursor:pointer;
+            margin-top:30px;
+            }
+            hr{
+            	margin-top: 35px;
+            }
+            #welcome_text{
+            	
+
+            	width:30%;
+            	height:150px;
+            	margin: 230px auto;
+            }
+   #register{
+   	font-family: arial;
+   	color:teal;
+    width:60%;
+    font-weight: 700;
+   	font-size:25px;
+   	background-color: white;
+   	border:1px solid white;
+   	border-radius:15px;
+   	margin:auto;
+   	margin-top: 30px;
+   	padding-top: 10px;
+    padding-bottom: 10px;
+    text-align:center;
+    cursor:pointer;
+   }
+   #signuppage{
+   position:absolute;
+   width:75%;
+   margin-left:13%;
+   height:600px;
+   background-color:white;
+   display:none;
+   margin-top:30px;
+   box-shadow:0 0 10px;
+   z-index:1;
+   }
+   input
+   	color:white;
+   	font-size: 30px;
+   }
+ #space{
+ 	height:600px;
+ 	width:28%;
+ 	background-color:teal;
+ 	box-shadow:0 0 8px;
+ 	float:left;
+
+
+ }
+ #info{
+ 	height:600px;
+ 	width:73%;
+ 	margin-left:28%;
+    
+
+ }
+ #suwe{
+ 	font-family: Segoe UI;
+ 	font-size: 25px;
+ 	margin-top:40px;
+ 	font-weight: 700;
+    color: rgba(112,87,87,1);
+ 	text-align:center;
+ }
+ #mobile_box,#pass_box,#conpass_box,#email_box{
+ 	outline:none;		
+ 	font-size: 20px;
+ 	width:70%;
+ 	border-radius:100px;
+ 	margin: 0px;
+ 	
+     border:1px solid black;
+ 	color:black;
+ 	margin:auto;
+ 	padding:5px;
+     padding-left:15px;
+     background-color: rgba(168,163,163,1);
+     border-color: rgba(168,163,163,1);
+ }
+ #firstname{
+ 		outline:none;
+		font-size:20px;
+ 	float:left;
+ 	width:32%;
+ 	border-radius: 100px;
+   border:1px solid black; 	
+margin: 2px;
+   background-color: rgba(168,163,163,1);
+     border-color: rgba(168,163,163,1);
+ 
+     padding:5px;
+         padding-left:16px;
+         color:black;
+ }
+  #lastname{
+ 		outline:none;
+		color:black;
+
+  	font-size:20px;
+  	border-radius: 100px;
+ 	border:1px solid black;
+ 	width:32%;
+
+  margin: 1px;
+    margin-left:8px;
+     background-color: rgba(168,163,163,1);
+     border-color: rgba(168,163,163,1);
+     
+     padding:5px;
+         padding-left:16px;
+ }
+ #c1{
+ 	font-size:15px;
+ 	margin-left:150px;
+ 	float:left;
+ }
+ #createacc{
+ 	color:white;
+ 	border:1px solid pink;
+ 	background-color:rgba(219,35,35,1);
+ 	margin: auto;
+ 	width:30%;
+ 	text-align: center;
+ 	border-radius: 10px;
+ 	font-size: 20px;
+ 	padding: 5px;
+ }
+ #googleimg,#facebookimg,#twitterimg{
+ 	width:32px;
+ 	height:32px;
+ 	margin-left:50px;
+ 	float:left;
+ }
+  #bar{float:left;
+    margin-top:30px;
+    font-size:30px;
+    margin-left:20px;
+    color:white;
+    display:none;
+  }
+  @media(max-width:780px)
+  {
+  #bar{
+    display:none;
+  }
+  #logo{
+    float:none;
+    
+  }
+  #navigation{
+    margin-left:10%;
+  }
+  #welcome_text{
+    width:70%;
+  }
+
+  }
+  @media(max-width:542px)
+  {
+  #bar{
+  display:block;
+  }
+  #navigation{
+  display:none;
+  }
+  #signup,#login{
+  display:none;
+  }
+  #logo{
+    text-align:center;
+  }
+  }
+	</style>
+</head>
+<body>
+	<div id="signuppage"><div id="space"></div>
+		<div id="info">
+		  <div style="text-align:right;padding-right:20px;padding-top:10px;"> 
+      <i  id="cross"  style="cursor:pointer;"class="fa fa-times fa-2x"  aria-hidden="true"></i></div>
+    	<form onSubmit="checkpassword()" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
+			<div id="suwe">SignUp With Mobile</div><br>
+			<div style="margin-left: 150px;"><input required id="mobile_box" onfocusout="checkmobile()" name="mobile" placeholder="Mobile No."></div><br>
+             <div style="margin-left: 150px;"><input  required id="pass_box" type="password" name="password" placeholder="Password"></div><br>
+                          <div style="margin-left: 150px;"><input  required id="conpass_box" onfocusout="checkpass()" name="conpassword" type="password" placeholder="Confirm password"></div>
+             <font style="margin-left: 150px;">Minimum 6 character</font>
+             <div style="margin-left:150px;"> <input tpye="text"  required id="firstname" name="firstname" placeholder="First name">
+               <input tpye="text" id="lastname" placeholder="Last name" required  name="secondname"> </div><br>
+               <div style="margin-left: 150px;"><input required id="email_box" type="email" name="email" placeholder="Email"></div><br>
+            <input type="checkbox" required id="c1"> <div style="width:80%;font-family: Microsoft Sans Serif;;">Create your account means you are agree, with the 
+             	<span style="color:rgba(219,35,35,1); ">
+             TERM & CONDITION</span> and the policy of agreement.
+		</div><br>
+		<div id="createacc" type="submit"><input type="submit" value="Create Account" style="outline:none;background-color:rgba(219,35,35,1);border:0px solid;"></div>
+        </form>
+        <div style="margin-left:320px; ">Already a member?<span style="color:rgba(219,35,35,1); font-weight: 700;"> Sign In</span></div><br>
+		<hr style="width:80%; margin:auto;"><br>
+         <div style="margin-left:320px;" >SignUp using other Platform</div><br>
+         <div style="margin-left:265px;"> <div id="googleimg"> <img src="google.png" style="width:100%;"></div>
+         <div id="facebookimg"><img src="facebook.png" style="width:100%;"></div>
+         <div id="twitterimg"><img src="twitter.png" style="width:100%;"></div> </div>
+	</div>
+	</div>
+
+<div id="background">
+    <div id="login">LOGIN</div>
+    <div id="signup">SIGNUP</div>
+
+  <div id="bar"><i class="fa fa-bars"></i></div>
+ 	<div id="logo"> MP POLICE  </div>
+ 
+	<div id="navigation"><a href="home.html" id="active">Home</a>
+		<a href="features.html" >Features</a>
+		<a href="help.html">Help</a>
+		<a href="contactus.html">Contact Us</a>
+		
+	</div>
+
+<div id="welcome_text">
+	<div style="text-align: center;width:100% ;font-size: 50px;color:white;">WELCOME!</div>
+	<div style="text-align: center;width:100% ;font-size: 30px;color:white;">Get your case Registerd</div>
+	<div id="register">REGISTER</div>
+
+
+</div>
+
+</div>
+
+	
+
+</body>
+</html>

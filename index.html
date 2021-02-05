@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$("#signup").click(function(){
+	$("#signuppage").toggle();
+	if(	document.getElementById("background").style.opacity=="0.65")
+	document.getElementById("background").style.opacity="1";
+	else
+	document.getElementById("background").style.opacity="0.65";	
+	document.getElementById("signuppage").style.opacity="1";
+	});
+
+	});
+	</script>
+	<style>
+		#logo{
+			font-size: 50px;
+			font-family: arial;
+			color:white;
+			padding:20px;
+			float:left;
+		}
+	   #background{
+			background-color:maroon;
+			width:100%;
+			height:110vh;
+			background-size: cover;
+	        background-position: center;
+	    
+		        }
+		        #navigation{
+        		font-family: Segoe UI;
+ 
+		        	font-size: 25px;
+		        	padding-top:30px;
+		        	margin-left:550px;
+		        	margin-top:0px;
+		        }
+
+		        a{
+		        	 text-decoration: none;
+                     color:white;
+                     font-size: 25px;
+                     text-align: center;
+                     margin:2px;
+                     padding:4px;
+                     border-radius:8px;
+           			 padding-left:10px;
+
+		        }
+		        a:hover{
+		        	color:white;
+		        	background-color:rgba(255,255,255,0.2);
+
+		        }
+            #active{
+                    color:white;
+		        	background-color:rgba(255,255,255,0.2);	
+                   }
+                
+            #login,#signup{
+            	font-family: arial;
+            float:right;
+            font-size: 20px;
+            color:maroon;
+            background-color:white;
+            margin:2px;
+            padding:12px;
+            border-radius:200px;
+            margin-right: 40px;
+            cursor:pointer;
+            }
+            hr{
+            	margin-top: 35px;
+            }
+            #welcome_text{
+            	
+
+            	width:30%;
+            	height:150px;
+            	margin: 200px 35%;
+            }
+   #register{
+   	font-family: arial;
+   	color:teal;
+    width:50%;
+    font-weight: 700;
+   	font-size:20px;
+   	background-color: white;
+   	border:1px solid white;
+   	border-radius:15px;
+   	margin:auto;
+   	margin-top: 30px;
+   	padding: 10px;
+   	cursor:pointer;
+   }
+   #signuppage{
+   position:absolute;
+   width:75%;
+   margin-left:13%;
+   height:600px;
+   background-color:white;
+   display:block;
+   margin-top:30px;
+   box-shadow:0 0 10px;
+   z-index:1;
+   }
+   input{
+   	color:white;
+   	font-size: 30px;
+   }
+ #space{
+ 	height:600px;
+ 	width:28%;
+ 	background-color:teal;
+ 	box-shadow:0 0 8px;
+ 	float:left;
+
+
+ }
+ #info{
+ 	height:600px;
+ 	width:73%;
+ 	margin-left:28%;
+    
+
+ }
+ #suwe{
+ 	font-family: Segoe UI;
+ 	font-size: 25px;
+ 	margin-top:40px;
+ 	font-weight: 700;
+    color: rgba(112,87,87,1);
+ 	text-align:center;
+ }
+ #email_box,#pass_box,#username_box{
+ 	outline:none;		
+ 	font-size: 20px;
+ 	width:70%;
+ 	border-radius:100px;
+ 	margin: 0px;
+ 	
+     border:1px solid black;
+ 	color:black;
+ 	margin:auto;
+ 	padding:5px;
+     padding-left:15px;
+     background-color: rgba(168,163,163,1);
+     border-color: rgba(168,163,163,1);
+ }
+ #firstname{
+ 		outline:none;
+		font-size:20px;
+ 	float:left;
+ 	width:32%;
+ 	border-radius: 100px;
+   border:1px solid black; 	
+margin: 2px;
+   background-color: rgba(168,163,163,1);
+     border-color: rgba(168,163,163,1);
+ 
+     padding:5px;
+         padding-left:16px;
+         color:black;
+ }
+  #lastname{
+ 		outline:none;
+		color:black;
+
+  	font-size:20px;
+  	border-radius: 100px;
+ 	border:1px solid black;
+ 	width:32%;
+
+  margin: 1px;
+    margin-left:8px;
+     background-color: rgba(168,163,163,1);
+     border-color: rgba(168,163,163,1);
+     
+     padding:5px;
+         padding-left:16px;
+ }
+ #c1{
+ 	font-size:15px;
+ 	margin-left:150px;
+ 	float:left;
+ }
+ #createacc{
+ 	color:white;
+ 	border:1px solid pink;
+ 	background-color:rgba(219,35,35,1);
+ 	margin: auto;
+ 	width:30%;
+ 	text-align: center;
+ 	border-radius: 10px;
+ 	font-size: 20px;
+ 	padding: 5px;
+ }
+ #googleimg,#facebookimg,#twitterimg{
+ 	width:32px;
+ 	height:32px;
+ 	margin-left:50px;
+ 	float:left;
+ }
+	</style>
+</head>
+<body>
+	<div id="signuppage"><div id="space"></div>
+		<div id="info">
+			<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+			<div id="suwe">SignUp with Email</div><br>
+			<div style="margin-left: 150px;"><input id="email_box" type="email" name="email" placeholder="Email"></div><br>
+             <div style="margin-left: 150px;"><input id="pass_box" type="password" name="password" placeholder="password"></div><br>
+                          <div style="margin-left: 150px;"><input id="pass_box" name="conpassword" type=" password" placeholder="confirm password"></div>
+             <font style="margin-left: 150px;">Minimum 6 character</font>
+             <div style="margin-left:150px;"> <input tpye="text" id="firstname" name="firstname" placeholder="first name">
+               <input tpye="text" id="lastname" placeholder="last name" name="secondname"> </div><br>
+               <div style="margin-left: 150px;"><input id="username_box" type="text" name="userrname" placeholder="Username"></div><br>
+            <input type="checkbox" required id="c1"> <div style="width:80%;font-family: Microsoft Sans Serif;;">Create your account means you are agree, with the 
+             	<span style="color:rgba(219,35,35,1); ">
+             TERM & CONDITION</span> and the policy of agreement.
+		</div><br>
+		<div id="createacc" type="submit"><input type="submit" value="Create Account" style="outline:none;background-color:rgba(219,35,35,1);border:0px solid;"></div>
+        </form>
+        <div style="margin-left:320px; ">Already a member?<span style="color:rgba(219,35,35,1); font-weight: 700;"> Sign In</span></div><br>
+		<hr style="width:80%; margin:auto;"><br>
+         <div style="margin-left:320px;" >SignUp using other Platform</div><br>
+         <div style="margin-left:265px;"> <div id="googleimg"> <img src="google.png" style="width:100%;"></div>
+         <div id="facebookimg"><img src="facebook.png" style="width:100%;"></div>
+         <div id="twitterimg"><img src="twitter.png" style="width:100%;"></div> </div>
+	</div>
+	</div>
+
+<div id="background">
+	<div id="logo"> MP POLICE  </div>
+	<div id="navigation"><a href="home.html" id="active">Home</a>
+		<a href="features.html" >Features</a>
+		<a href="help.html">Help</a>
+		<a href="contactus.html">Contact Us</a>
+		<div id="login">LOGIN</div>
+		<div id="signup">SIGNUP</div>
+		
+         
+	</div>
+<hr>
+<div id="welcome_text">
+	<div style="text-align: center;width:100% ;font-size: 50px;color:white;">WELCOME!</div>
+	<div style="text-align: center;width:100% ;font-size: 30px;color:white;">Get your case Registerd</div>
+	<div id="register">REGISTER</div>
+
+
+</div>
+
+</div>
+
+	
+
+</body>
+</html>
